@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
-            <h3 class="text-center text-theme-primary">New Category</h3>
-            <p class="text-center mb-5">Add new categories from here ..!</p>
+            <h3 class="text-center text-theme-primary">{{formStatus}} Category</h3>
+            <p class="text-center mb-5"> {{formStatus}} categories from here ..!</p>
 
             <form action="" class="form-inline text-center" #categoryForm='ngForm' (ngSubmit)="addCategory(categoryForm)">
                 <div class="row">
@@ -11,7 +11,7 @@
                     class="form-control shadow-effect" 
                     name="category" 
                     placeholder="Add New Category"
-                    ngModel
+                    [(ngModel)]="formCategory"
                     #newCategory = 'ngModel'
                     required
                     [ngClass]="{'is-invalid': newCategory.touched && newCategory.invalid}"
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <button class="btn btn-theme" [disabled]="categoryForm.invalid">Add Category</button>
+                    <button class="btn btn-theme" [disabled]="categoryForm.invalid">{{formStatus}} Category</button>
                 </div>
             </div>
             </form>
@@ -35,7 +35,7 @@
         <div class="col-md-6">
             <div class="card shadow-effect">
                 <div class="card-body">
-                    <div class="table row-border hover">
+                    <table class="table row-border">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -48,11 +48,12 @@
                                 <td>{{ i+1 }}</td>
                                 <td>{{ category.data.category }}</td>
                                 <td>
-                                    <button (click)="editCategory(category.data.category)" class="btn btn-sm btn-success">Edit</button>
+                                    <button (click)="editCategory(category.data.category, category.id)" class="btn btn-sm btn-success">Edit</button>
+                                    <button (click)="deleteCategory(category.id)" class="btn btn-sm btn-danger mx-2">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
-                    </div>
+                    </table>
                 </div>
             </div>
         </div>

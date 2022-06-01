@@ -11,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class CategoriesComponent implements OnInit {
 
   categoryArray : any = [];
+  formCategory !: string;
+  formStatus : string = "Add";
+  categoryId !: string
   
 
 
@@ -29,14 +32,32 @@ export class CategoriesComponent implements OnInit {
       category : categoryForm.value.category,
     }
 
-    this.categoryService.saveData(categoryData);
+    if (this.formStatus == 'Add') {
+      this.categoryService.saveData(categoryData);
+      categoryForm.reset();
+    }
 
-    categoryForm.reset();
+    else if (this.formStatus == 'Edit') {
+      this.categoryService.updateData(this.categoryId, categoryData);
+      categoryForm.reset();
+      this.formStatus = 'Add'
+    }
+
+    
   }
 
-  editCategory(category: any){
+  editCategory(category: any, id: any){
 
-    console.log(category);
+    this.formCategory = category;
+    this.formStatus = "Edit";
+    this.categoryId = id;
     
+  }
+
+  deleteCategory(id: any){
+
+    if ((confirm('Are you sure you want to delete this category'))) {
+      this.categoryService.deleteData(id)
+    }
   }
 }
