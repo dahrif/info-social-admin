@@ -23,10 +23,11 @@ export class CategoryService {
 
   loadData(){
 
-    this.afs.collection('categories').snapshotChanges().pipe(map(actions =>{
-      actions.map(a =>{
+     return this.afs.collection('categories').snapshotChanges().pipe(map(actions =>{
+      return actions.map(a =>{
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
+        return {id, data}
       })
     }))
   }

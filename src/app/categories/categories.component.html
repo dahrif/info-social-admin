@@ -27,4 +27,39 @@
 
         </div>
     </div>
+
+    <div class="row my-5">
+
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <div class="table row-border hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categoryArray; let i = index">
+                                <td>{{ i+1 }}</td>
+                                <td>{{ category.data.category }}</td>
+                                <td>
+                                    <button (click)="editCategory(category.data.category)" class="btn btn-sm btn-success">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3"></div>
+
+    </div>
 </div>
+
+
