@@ -1,3 +1,4 @@
+import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllPostComponent implements OnInit {
 
-  constructor() { }
+  postArray!: any[]
+
+  constructor(private postService : PostService) { }
 
   ngOnInit(): void {
+
+    this.postService.loadData().subscribe(val => {
+      console.log(val);
+      this.postArray = val;
+      
+    })
   }
 
 }

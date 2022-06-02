@@ -1,7 +1,9 @@
+import { PostService } from './../../services/post.service';
 import { CategoryService } from './../../services/category.service';
-import { CategoriesComponent } from './../../categories/categories.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from 'src/app/models/post';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -16,7 +18,16 @@ export class NewPostComponent implements OnInit {
   categories !: any[];
   postForm: FormGroup;
 
-  constructor(private categoryService : CategoryService, private fb: FormBuilder) {
+  constructor(
+    private categoryService : CategoryService,
+     private fb: FormBuilder,
+      private postService : PostService,
+      private route : ActivatedRoute
+      ) {
+
+        this.route.queryParams.subscribe(val =>{
+          console.log(val);
+        })
 
     this.postForm = this.fb.group({
       title: ['',[Validators.required, Validators.minLength(10)]],
@@ -32,6 +43,7 @@ export class NewPostComponent implements OnInit {
     this.categoryService.loadData().subscribe(val =>{
       this.categories = val
     })
+    
   }
 
   get fc(){
@@ -56,7 +68,28 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.postForm.value);
     
+    let splitted = this.postForm.value.category.split('-');
+    
+    const postData : Post = {
+      title: this.postForm.value.title,
+      permalink: this.postForm.value.permalink,
+      category: {
+        categoryId: splitted[0],
+        category: splitted[1]
+      },
+      postImgPath: '',
+      excerpt: this.postForm.value.excerpt,
+      content: this.postForm.value.content,
+      isFeatured: false,
+      views: 0,
+      status: 'new',
+      createdAt: new Date(),
+    }
+    console.log(postData);
+    this.postService.uploadImage(this.selectedImg, postData);
+    this.postForm.reset();
+
+    this.imgSrc= './assets/img-preview.jpg'
   }
 }

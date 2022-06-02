@@ -101,7 +101,7 @@
             [ngClass]="{ 'is-invalid': fc.category.touched && fc.category.invalid }"
           >
             <option value="" disabled>Please select Category</option>
-            <option *ngFor="let category of categories" value={{ category.data.category }}>
+            <option *ngFor="let category of categories" value="{{category.id}}-{{category.data.category}}">
               {{ category.data.category }}
             </option>
           </select>
