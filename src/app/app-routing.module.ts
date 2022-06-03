@@ -1,3 +1,4 @@
+import { LoginComponent } from './auth/login/login.component';
 import { NewPostComponent } from './posts/new-post/new-post.component';
 import { AllPostComponent } from './posts/all-post/all-post.component';
 import { CategoriesComponent } from './categories/categories.component';
@@ -7,9 +8,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'posts', component: AllPostComponent},
-  {path: 'posts/new', component: NewPostComponent}
+  {path: 'posts/new', component: NewPostComponent},
 ];
 
 @NgModule({
