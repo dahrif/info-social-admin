@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow-effect">
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table row-border">
                         <thead>
                             <tr>
@@ -39,6 +39,7 @@
                                 <td>{{post.data.createdAt.toMillis() | date }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" routerLink="/posts/new" [queryParams]="{id:post.id}">Edit post</button>
+                                    <button class="btn btn-sm btn-danger mx-1" (click)="deletePost(post.data.postImgPath, post.id)">Delete post</button>
                                 </td>
                             </tr>
                         </tbody>

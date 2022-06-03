@@ -16,27 +16,52 @@ export class NewPostComponent implements OnInit {
   imgSrc : any = './assets/img-preview.jpg';
   selectedImg: any;
   categories !: any[];
-  postForm: FormGroup;
+  postForm!: FormGroup;
+  post: any;
+  formStatus : string = 'Add New';
+  docId !: string;
 
   constructor(
     private categoryService : CategoryService,
-     private fb: FormBuilder,
-      private postService : PostService,
-      private route : ActivatedRoute
-      ) {
-
+    private fb: FormBuilder,
+    private postService : PostService,
+    private route : ActivatedRoute
+    ){
         this.route.queryParams.subscribe(val =>{
-          console.log(val);
+
+          this.docId = val.id;
+
+          if (this.docId) {
+            this.postService.loadOneData(val.id).subscribe(post =>{
+
+              this.post = post;
+  
+              this.postForm = this.fb.group({
+                title: [this.post.title,[Validators.required, Validators.minLength(10)]],
+                permalink: [this.post.permalink, Validators.required],
+                excerpt: [this.post.excerpt, [Validators.required, Validators.minLength(50)]],
+                category: [this.post.category.categoryId + '-'+this.post.category.category, Validators.required],
+                postImage: ['',Validators.required],
+                content: [this.post.content,Validators.required]
+              }) 
+              
+              this.imgSrc = this.post.postImgPath
+              this.formStatus = "Edit"
+            })
+          } else {
+            this.postForm = this.fb.group({
+              title: ['',[Validators.required, Validators.minLength(10)]],
+              permalink: ['', Validators.required],
+              excerpt: ['', [Validators.required, Validators.minLength(50)]],
+              category: ['', Validators.required],
+              postImage: ['',Validators.required],
+              content: ['',Validators.required]
+            }) 
+          }
+
+
         })
 
-    this.postForm = this.fb.group({
-      title: ['',[Validators.required, Validators.minLength(10)]],
-      permalink: ['', Validators.required],
-      excerpt: ['', [Validators.required, Validators.minLength(50)]],
-      category: ['',Validators.required],
-      postImage: ['',Validators.required],
-      content: ['',Validators.required]
-    })
    }
 
   ngOnInit(): void {
@@ -44,6 +69,7 @@ export class NewPostComponent implements OnInit {
       this.categories = val
     })
     
+   
   }
 
   get fc(){
@@ -86,8 +112,7 @@ export class NewPostComponent implements OnInit {
       status: 'new',
       createdAt: new Date(),
     }
-    console.log(postData);
-    this.postService.uploadImage(this.selectedImg, postData);
+    this.postService.uploadImage(this.selectedImg, postData,this.formStatus, this.docId);
     this.postForm.reset();
 
     this.imgSrc= './assets/img-preview.jpg'
