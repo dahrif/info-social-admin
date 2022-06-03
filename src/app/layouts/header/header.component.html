@@ -3,5 +3,9 @@
     <div class="container justify-content-center">
         <a href="#" class="site-logo">Ang-Blog</a>
     </div>
+    <div *ngIf="isLoggeIn$ | async" class="container justify-content-center">
+        <a class="mx-3" routerLink="/">{{userEmail}}</a>
+        <button class="btn btn-sm btn-danger" (click)="logOut()">Logout</button>
+    </div>
 
 </header>
