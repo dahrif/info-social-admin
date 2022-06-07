@@ -23,6 +23,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { SubsribersComponent } from './subsribers/subsribers.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     CategoriesComponent,
     AllPostComponent,
     NewPostComponent,
-    LoginComponent
+    LoginComponent,
+    SubsribersComponent
   ],
   imports: [
     BrowserModule,

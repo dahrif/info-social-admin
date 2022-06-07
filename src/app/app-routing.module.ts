@@ -6,6 +6,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SubsribersComponent } from './subsribers/subsribers.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard]},
   {path: 'posts', component: AllPostComponent, canActivate: [AuthGuard]},
   {path: 'posts/new', component: NewPostComponent, canActivate: [AuthGuard]},
+  {path: 'subscribers', component: SubsribersComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
