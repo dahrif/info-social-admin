@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "info-social"
+  },
+  "targets": {
+    "info-social": {
+      "hosting": {
+        "infosocialadmin": [
+          "admin-info-social"
+        ]
+      }
+    }
+  }
+}

@@ -1,1 +1,11 @@
-{}
+{
+  "hosting": {
+    "target": "infosocialadmin",
+    "public": "dist/info-social-admin",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
